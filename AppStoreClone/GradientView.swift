@@ -72,14 +72,14 @@ import UIKit
 	}
 
 	/// The mode of the gradient. The default is `.Linear`.
-	@IBInspectable open var mode: Mode = .linear {
+	open var mode: Mode = .linear {
 		didSet {
 			setNeedsDisplay()
 		}
 	}
 
 	/// The direction of the gradient. Only valid for the `Mode.Linear` mode. The default is `.Vertical`.
-	@IBInspectable open var direction: Direction = .vertical {
+	open var direction: Direction = .vertical {
 		didSet {
 			setNeedsDisplay()
 		}
@@ -199,13 +199,13 @@ import UIKit
 			let colorSpace = CGColorSpaceCreateDeviceRGB()
 			let colorSpaceModel = colorSpace.model
 
-			let gradientColors = colors.map { (color: UIColor) -> AnyObject! in
+            let gradientColors = colors.map { (color: UIColor) -> AnyObject? in
 				let cgColor = color.cgColor
 				let cgColorSpace = cgColor.colorSpace ?? colorSpace
 
 				// The color's color space is RGB, simply add it.
 				if cgColorSpace.model == colorSpaceModel {
-					return cgColor as AnyObject!
+					return cgColor as AnyObject
 				}
 
 				// Convert to RGB. There may be a more efficient way to do this.
@@ -214,7 +214,7 @@ import UIKit
 				var green: CGFloat = 0
 				var alpha: CGFloat = 0
 				color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-				return UIColor(red: red, green: green, blue: blue, alpha: alpha).cgColor as AnyObject!
+				return UIColor(red: red, green: green, blue: blue, alpha: alpha).cgColor as AnyObject
 			} as NSArray
 
 			gradient = CGGradient(colorsSpace: colorSpace, colors: gradientColors, locations: locations)
